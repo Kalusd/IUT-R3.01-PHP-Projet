@@ -26,8 +26,8 @@
             echo $ch1." : ".$ch2."</p>";
         }
 
-        echo '<a href="./login.php">Connection</a>';
+        echo '<a href="./login.php">Connexion</a>';
     ?>
-    <img src="vignette.php?nom=faggio.jpg" alt="Faggio">
+    <img src="vignette.php?nom=faggio.jpg&largeur=400&hauteur=300" alt="Faggio">
 </body>
 </html>
