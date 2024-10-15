@@ -26,16 +26,15 @@
 
             if($donnees=mysqli_fetch_assoc($result)) {
                 $_SESSION['login'] = $donnees["log"];
-                header ('location: backOffice.php');
-                
+                header ('location: backOffice.php');     
             }
-
-        else {
+        
+            else {
             echo '<body onLoad="alert(\'Identifiant ou mot de passe incorrect...\')">';
             // Puis on le redirige vers la page d'accueil
             echo '<meta http-equiv="refresh" content="0;URL=login.php">';
+            }
         }
-    } 
     else {
         echo '<!DOCTYPE html>
             <html lang="fr">
