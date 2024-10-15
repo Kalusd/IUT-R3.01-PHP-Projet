@@ -5,23 +5,31 @@
     // Connexion à la base de données
     include("./connexionBDD.php");
 
+    // Vérification de la connexion
+    if (mysqli_connect_errno()) {
+        echo "<p><strong>Failed to connect to MySQL: ".mysqli_connect_error()."</strong></p>";
+        exit();
+    }
+
     // TODO: Supprimer les valeurs
     $login_valide = "test";
     $pwd_valide = "test";
     
-    // On teste si nos variables sont définies dans le POST
-    if (isset($_POST['login']) && isset($_POST['pwd'])) {
-        $query = "SELECT * FROM AcheterVehicule_personnel";
-        $result = mysqli_query($link,$query);
-        
-        // On vérifie les informations saisies
-        if ($login_valide == $_POST['login'] && $pwd_valide == $_POST['pwd']) { // TODO: Remplacer par infos connexion dans bdd
-            // On enregistre les paramètres de notre visiteur comme variables de session ($login et $pwd)
-            $_SESSION['login'] = $_POST['login'];
-            $_SESSION['pwd'] = $_POST['pwd'];
-            // On redirige notre visiteur vers une page de notre section membre
-            header ('location: backOffice.php');
-        }
+        // On teste si nos variables sont définies dans le POST
+        if (isset($_POST['login']) && isset($_POST['pwd'])) {
+            $login = $_POST['login'];
+            $pwd = $_POST['pwd'];
+
+            $query = 'SELECT * FROM AcheterVehicule_personnel WHERE log = \''.$login.'\' AND  mdp = \''.$pwd.'\';';
+            $result = mysqli_query($link,$query);
+
+
+            if($donnees=mysqli_fetch_assoc($result)) {
+                $_SESSION['login'] = $donnees["log"];
+                header ('location: backOffice.php');
+                
+            }
+
         else {
             echo '<body onLoad="alert(\'Identifiant ou mot de passe incorrect...\')">';
             // Puis on le redirige vers la page d'accueil
