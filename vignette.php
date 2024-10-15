@@ -2,12 +2,12 @@
     // On renvoie une image
     header("Content-type: image/jpeg");
 
-    $cheminImageSource = "img/".$_GET["chemin"];
+    $cheminImageSource = "img/".$_GET["nom"];
     $largeurCible = $_GET["largeur"];
     $hauteurCible = $_GET["hauteur"];
 
     // Paramètres de l'image
-    $tailleSource = GetImageSize($imageSource);
+    $tailleSource = GetImageSize($cheminImageSource);
     $largeurSource = $tailleSource[0];
     $hauteurSource = $tailleSource[1];
 
@@ -17,6 +17,9 @@
     imageCopyResampled($imageCible, $imageSource, 0, 0, 0, 0, $largeurCible, $hauteurCible, $largeurSource, $hauteurSource);
 
     //Exportation de l'image
-    imageJpeg($imageCible, $_GET["chemin"])
+    ImageJpeg($imageCible);
+
+    // Destruction de l'image pour sauver de la mémoire
+    imageDestroy($imageCible);
 
 ?>
