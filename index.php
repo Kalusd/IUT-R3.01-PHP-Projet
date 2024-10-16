@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,6 +11,7 @@
     <title>Page d'accueil</title> <!-- MODIFIER TITRE -->
 </head>
 <body class="container">
+    
     <?php
         // Connexion à la base de données
         include("./connexionBDD.php");
@@ -20,17 +24,37 @@
             exit();
         }
 
-        // Test BDD
-        while ($donnees=mysqli_fetch_assoc($result)) {
-            $ch1 = $donnees["nom"];
-            $ch2 = $donnees["image"];
-            echo $ch1." : ".$ch2."</p>";
+        if (isset($_SESSION['login'])) {
+            if ($_SESSION['role'] == 'admin') {
+                echo '<a href="./backOffice.php">Back-Offic</a>';
+            }
+            echo '<a href="./logout.php">Déconnexion</a>';
+        }
+        else {
+            echo '<a href="./login.php">Connexion</a>';
         }
 
-        echo '<a href="./login.php">Connexion</a>';
+        
+        // Test BDD
+        echo "<div class='container text-center'>";
+        echo '<div class="row row-cols-3">';
+        while ($donnees=mysqli_fetch_assoc($result)) {
+            echo '<div class="col">';
+                echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=256&hauteur=144" alt='.$donnees["modele"].'>';
+                echo '<h2>'.$donnees["modele"].'</h2>';
+                echo '<h5>Prix : '.$donnees["prix"].'$</h2>';
+                echo '<a>'.$donnees["description"].'</a>';
+                $_SESSION['role'] = 0;
+                
+            echo '</div>';
+        }
+        echo "</div>";
+        echo "</div>";
+
     ?>
-    <div class="row row-cols-3">
-        <img src="vignette.php?nom=faggio.jpg&largeur=256&hauteur=144" alt="Faggio">
-    </div>
+    
+
+   
+</div>
 </body>
 </html>

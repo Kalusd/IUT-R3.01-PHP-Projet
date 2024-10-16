@@ -2,7 +2,7 @@
     // On renvoie une image
     header("Content-type: image/jpeg");
 
-    $cheminImageSource = "img/".$_GET["nom"];
+    $cheminImageSource = $_GET["nom"];
     $largeurCible = $_GET["largeur"];
     $hauteurCible = $_GET["hauteur"];
 

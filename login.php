@@ -7,31 +7,29 @@
 
     // Vérification de la connexion
     if (mysqli_connect_errno()) {
-        echo "<p><strong>Failed to connect to MySQL: ".mysqli_connect_error()."</strong></p>";
+        echo "<p><strong>Erreur de connexion à MySQL: ".mysqli_connect_error()."\nVeuillez réessayer plus tard.</strong></p>";
         exit();
     }
-
-    // TODO: Supprimer les valeurs
-    $login_valide = "test";
-    $pwd_valide = "test";
     
         // On teste si nos variables sont définies dans le POST
         if (isset($_POST['login']) && isset($_POST['pwd'])) {
             $login = $_POST['login'];
             $pwd = $_POST['pwd'];
 
-            $query = 'SELECT * FROM AcheterVehicule_personnel WHERE log = \''.$login.'\' AND  mdp = \''.$pwd.'\';';
+            $query = 'SELECT * FROM AcheterVehicule_utilisateurs WHERE log = \''.$login.'\' AND  mdp = \''.$pwd.'\';';
             $result = mysqli_query($link,$query);
+
 
 
             if($donnees=mysqli_fetch_assoc($result)) {
                 $_SESSION['login'] = $donnees["log"];
-                header ('location: backOffice.php');     
+                $_SESSION['role'] = $donnees["role"]; // Seulement 2 valeurs possibles, 'client' et 'admin'
+                header ('location: index.php');
             }
         
             else {
             echo '<body onLoad="alert(\'Identifiant ou mot de passe incorrect...\')">';
-            // Puis on le redirige vers la page d'accueil
+            // Puis on le redirige vers la page de connexion
             echo '<meta http-equiv="refresh" content="0;URL=login.php">';
             }
         }

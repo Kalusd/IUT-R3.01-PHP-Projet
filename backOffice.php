@@ -1,8 +1,9 @@
 <?php
-session_start();
+    include("verif_connect_admin.php")    
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,15 +12,17 @@ session_start();
     <title>Back-office</title> <!-- MODIFIER TITRE -->
 </head>
 <body>
+    <a href="./index.php">Accueil</a>
+    <a href="./logout.php">Déconnexion</a>
     <?php
-
-        var_dunp($_SESSION['login']);
-        
-        if($_SESSION['login'] == "admin"){
-            echo "Vous êtes connecté.";
-        }
-        else{
-            echo "Vous n'êtes pas connecté.";
+        include("./connexionBDD.php");
+        $query = "SELECT * FROM AcheterVehicule_vehicule";
+        $result = mysqli_query($link,$query);
+        while ($donnees=mysqli_fetch_assoc($result)) {
+                echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=256&hauteur=144" alt='.$donnees["modele"].'>';
+                echo '<h2>'.$donnees["modele"].'</h2>';
+                echo '<h5>Prix : '.$donnees["prix"].'$</h2>';
+                echo '<a>'.$donnees["description"].'</a>';
         }
     ?>
 </body>
