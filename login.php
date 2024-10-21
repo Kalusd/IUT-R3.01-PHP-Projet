@@ -14,7 +14,7 @@
         // On teste si nos variables sont définies dans le POST
         if (isset($_POST['login']) && isset($_POST['pwd'])) {
             $login = $_POST['login'];
-            $pwd = $_POST['pwd'];
+            $pwd = hash("sha256", $_POST['pwd']);
 
             $query = 'SELECT * FROM AcheterVehicule_utilisateurs WHERE log = \''.$login.'\' AND  mdp = \''.$pwd.'\';';
             $result = mysqli_query($link,$query);
