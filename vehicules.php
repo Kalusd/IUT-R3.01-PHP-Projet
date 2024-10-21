@@ -59,22 +59,19 @@
         </nav>';
 
 
-        echo '<h1 style="color: #fff;">Liste des véhicules disponibles :</h1>';
+        echo '<strong><p style="color: #fff;" class="mt-3">Liste des véhicules disponibles :</h1></strong>';
         // Affichage cartes véhicules
         echo "<div class='container text-center mt-3'>";
         echo '<div class="row row-cols-3">';
         while ($donnees=mysqli_fetch_assoc($result)) {
             echo '<div class="col">';
-            echo '<div class="card" style="width: 18rem;" data-bs-theme="dark">';
+            echo '<a class="card" style="width: 18rem;" data-bs-theme="dark" href="vehicule.php?modele='.$donnees["modele"].'">';
             echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=256&hauteur=144" class="card-img-top" alt="'.$donnees["modele"].'">';
             echo '<div class="card-body">';
             echo '<strong><p class="card-text">'.$donnees["modele"].'</p></strong>';
             echo '</div>';
+            echo '</a>';
             echo '</div>';
-            echo '</div>';
-                // echo '<h2>'.$donnees["modele"].'</h2>';
-                // echo '<h5>Prix : '.$donnees["prix"].'$</h2>';
-                // echo '<a>'.$donnees["description"].'</a>';
         }
         echo "</div>";
         echo "</div>";
