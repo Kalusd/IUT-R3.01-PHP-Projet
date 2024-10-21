@@ -11,7 +11,7 @@
     <title>Page d'accueil</title> <!-- MODIFIER TITRE -->
 </head>
 <body class="container" style="background-color: #202020;">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-bottom" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">AcheterVehicule</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -20,8 +20,8 @@
             <a class="nav-link active" aria-current="page" href="#">Accueil</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Véhicules</a>
-            </li> <!-- Eventuellement un menu pour mettre tous les véhicules -->
+            <a class="nav-link" href="vehicules.php">Véhicules</a>
+            </li>
         </ul>
 
     <?php
@@ -58,10 +58,13 @@
         </div>
         </nav>';
 
+        
+        // echo ''; // Ajouter paragraphe d'accueil
         // Affichage cartes véhicules
-        echo "<div class='container text-center'>";
+        echo "<div class='container text-center mt-3'>";
         echo '<div class="row row-cols-3">';
-        while ($donnees=mysqli_fetch_assoc($result)) {
+        for ($i = 0; $i < 3; $i++) {
+            $donnees=mysqli_fetch_assoc($result);
             echo '<div class="col">';
             echo '<div class="card" style="width: 18rem;" data-bs-theme="dark">';
             echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=256&hauteur=144" class="card-img-top" alt="'.$donnees["modele"].'">';
