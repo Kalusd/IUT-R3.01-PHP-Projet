@@ -104,7 +104,7 @@
                         <label for="description" style="color: #fff;">Description :</label>
                         <textarea class="form-control" id="description" name="description" rows="6" required>'.$donnees['description'].'</textarea>
                     </div>
-                    <button type="submit" name="modifier" class="btn btn-primary">Modifier</button>
+                    <button type="submit" name="modifier" class="btn btn-success">Modifier</button>
                     <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
                 </form>';
             }
