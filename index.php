@@ -67,7 +67,7 @@
             $donnees=mysqli_fetch_assoc($result);
             echo '<div class="col">';
             echo '<a class="card" style="width: 18rem;" data-bs-theme="dark" href="vehicule.php?modele='.$donnees["modele"].'">';
-            echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=256&hauteur=144" class="card-img-top" alt="'.$donnees["modele"].'">';
+            echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=426&hauteur=240" class="card-img-top" alt="'.$donnees["modele"].'">';
             echo '<div class="card-body">';
             echo '<strong><p class="card-text">'.$donnees["modele"].'</p></strong>';
             echo '</div>';
