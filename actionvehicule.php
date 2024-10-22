@@ -2,8 +2,6 @@
         // Vérification du rôle administrateur de l'utilisateur
         include("verif_connect_admin.php");
 
-        var_dump($_GET); // DEBUG
-
         // Connexion à la base de données
         include("./connexionBDD.php");
 
@@ -16,7 +14,12 @@
             exit();
         }
         elseif (isset($_POST['modifier'])) {
-            // LOGIQUE METIER
+            $modele = $_POST['modele'];
+            $prix = $_POST['prix'];
+            $cheminImage = $_POST['cheminImage'];
+            $description = $_POST['description'];
+            $query = "UPDATE AcheterVehicule_vehicule SET prix = '".$prix."', chemin_Vignette = '".$cheminImage."', description = '".$description."' WHERE modele = '".$modele."';";
+            $result = mysqli_query($link,$query);
             echo '<body onLoad="alert(\'Véhicule modifié avec succès.\')">';
             echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
             exit();
@@ -69,10 +72,11 @@
                     </div>
                 </div>
                 </nav>
-                <div class="container mt-5">';
+                <div class="container mt-3">';
 
             if ($_GET['action'] == "supprimer") {
-                echo '<div class="alert alert-warning">
+                echo '<h2 style="color: #fff;">Confirmation de suppression</h2>
+                <div class="alert alert-warning">
                     Êtes-vous sûr de vouloir supprimer le véhicule <strong>'.$_GET['modele'].'</strong> ?
                 </div>
                 <form action="" method="post">
@@ -81,11 +85,32 @@
                     <a href="backOffice.php" class="btn btn-secondary">Non, annuler</a>
                 </form>';
             }
-    
-            // Requête de sélection des véhicules disponibles dans la base de données
-            $query = "SELECT * FROM AcheterVehicule_vehicule";
-            $result = mysqli_query($link,$query);
-    
+            elseif ($_GET['action'] == "modifier") {
+                $query = "SELECT * FROM AcheterVehicule_vehicule WHERE modele = '".$_GET['modele']."';";
+                $result = mysqli_query($link,$query);
+                $donnees=mysqli_fetch_assoc($result);
+                echo '<h2 style="color: #fff;">Modifier le véhicule "'.$_GET['modele'].'"</h2>
+                <form action="" method="post">
+                    <input type="hidden" name="modele" value="'.$_GET['modele'].'" required>
+                    <div class="form-group">
+                        <label for="prix" style="color: #fff;">Prix :</label>
+                        <input type="number" class="form-control" id="prix" name="prix" value="'.$donnees['prix'].'" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cheminImage" style="color: #fff;">Chemin de l\'image :</label>
+                        <input type="text" class="form-control" id="cheminImage" name="cheminImage" value="'.$donnees['chemin_Vignette'].'" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description" style="color: #fff;">Description :</label>
+                        <textarea class="form-control" id="description" name="description" rows="6" required>'.$donnees['description'].'</textarea>
+                    </div>
+                    <button type="submit" name="modifier" class="btn btn-primary">Modifier</button>
+                    <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
+                </form>';
+            }
+            elseif ($_GET['action'] == "ajouter") {
+                // FORMULAIRE AJOUT
+            }
             echo '</div>
             </body>
             </html>';
