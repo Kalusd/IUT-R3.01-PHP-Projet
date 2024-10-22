@@ -61,12 +61,33 @@
 
         // Groupe image + texte du véhicule
         $donnees=mysqli_fetch_assoc($result);
-        echo '<div class="clearfix mt-3">';
-            echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=640&hauteur=360" class="col-md-6 float-md-end mb-3 ms-md-3" alt="'.$donnees["modele"].'">';
+        echo '<div class="row">';
+
+            echo '<div class="col">';
             echo '<h2 style="color: #fff;">'.$donnees["modele"].'</h2>';
             echo '<h5 style="color: #fff;">'.number_format($donnees["prix"], 2, '.', ' ').' €</h5>';
             echo '<p style="color: #fff;">'.$donnees["description"].'</p>';
+            echo '
+                <form action="ajouter_panier.php" method="post" class="mt-3">
+                    <div class="form-group">
+                        <label for="quantite" style="color: #fff;">Quantité :</label>
+                        <input type="number" id="quantite" name="quantite" class="form-control" min="1" value="1" required>
+                    </div>
+
+                    <input type="hidden" name="article_id" value="<?php echo $donnees["id"]; ?>">
+                    <div class="form-group text-center mt-3">
+                        <input type="submit" value="Ajouter au panier" class="btn btn-success">
+                    </div>
+                </form>
+            ';
+            echo '</div>';
+            
+            echo '<div class="col">';
+            echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=640&hauteur=360" class="" alt="'.$donnees["modele"].'">';
+            echo '</div>';
+            
         echo '</div>';
+        
     ?>
 </div>
 </body>
