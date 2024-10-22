@@ -8,26 +8,24 @@
         include("./connexionBDD.php");
 
         // Si on a une action définie dans le POST = on doit exécuter l'action car confirmation déjà demandée à l'utilisateur
-        if (isset($_POST['action'])) {
-            if ($_POST['action'] == "supprimer") {
-                $query = "DELETE FROM AcheterVehicule_vehicule WHERE modele = '".$_POST['modele']."';";
-                $result = mysqli_query($link,$query);
-                echo '<body onLoad="alert(\'Véhicule supprimé avec succès.\')">';
-                echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
-                exit();
-            }
-            elseif ($_POST['action'] == "modifier") {
-                // LOGIQUE METIER
-                echo '<body onLoad="alert(\'Véhicule modifié avec succès.\')">';
-                echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
-                exit();
-            }
-            elseif ($_POST['action'] == "ajouter") {
-                // LOGIQUE METIER
-                echo '<body onLoad="alert(\'Véhicule ajouté avec succès.\')">';
-                echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
-                exit();
-            }
+        if (isset($_POST['supprimer'])) {
+            $query = "DELETE FROM AcheterVehicule_vehicule WHERE modele = '".$_POST['modele']."';";
+            $result = mysqli_query($link,$query);
+            echo '<body onLoad="alert(\'Véhicule supprimé avec succès.\')">';
+            echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
+            exit();
+        }
+        elseif (isset($_POST['modifier'])) {
+            // LOGIQUE METIER
+            echo '<body onLoad="alert(\'Véhicule modifié avec succès.\')">';
+            echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
+            exit();
+        }
+        elseif (isset($_POST['ajouter'])) {
+            // LOGIQUE METIER
+            echo '<body onLoad="alert(\'Véhicule ajouté avec succès.\')">';
+            echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
+            exit();
         }
 
         // Vérification de l'action à effectuer
@@ -81,7 +79,7 @@
                     <input type="hidden" name="modele" value="'.$_GET['modele'].'">
                     <button type="submit" name="supprimer" class="btn btn-danger">Oui, supprimer</button>
                     <a href="backOffice.php" class="btn btn-secondary">Non, annuler</a>
-                </form>'; // Vérifier name="supprimer" du bouton
+                </form>';
             }
     
             // Requête de sélection des véhicules disponibles dans la base de données
