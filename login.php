@@ -39,16 +39,45 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+                <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
+                <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
                 <title>Document</title>
             </head>
-            <body>
-                <form action="login.php" method="post">
-                    Votre login : <input type="text" name="login">
-                <br />
-                    Votre mot de passé : <input type="password" name="pwd"><br />
-                <input type="submit" value="Connexion">
-                </form>
+            <body class="container" style="background-color: #202020;">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-bottom" data-bs-theme="dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.php">AcheterVehicule</a>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="vehicules.php">Véhicules</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </nav>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <form action="login.php" method="post" class="mt-5">
+                                <div class="form-group">
+                                    <label for="login" style="color: #fff;">Votre login :</label>
+                                    <input type="text" id="login" name="login" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd" style="color: #fff;">Votre mot de passe :</label>
+                                    <input type="password" id="pwd" name="pwd" class="form-control" required>
+                                </div>
+                                <div class="form-group text-center mt-3">
+                                    <input type="submit" value="Connexion" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </body>
             </html>';
     }
