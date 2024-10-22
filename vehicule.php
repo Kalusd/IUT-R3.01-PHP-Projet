@@ -64,7 +64,7 @@
         echo '<div class="clearfix mt-3">';
             echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=640&hauteur=360" class="col-md-6 float-md-end mb-3 ms-md-3" alt="'.$donnees["modele"].'">';
             echo '<h2 style="color: #fff;">'.$donnees["modele"].'</h2>';
-            echo '<h5 style="color: #fff;">'.number_format($donnees["prix"], 0, '.', ' ').' €</h5>';
+            echo '<h5 style="color: #fff;">'.number_format($donnees["prix"], 2, '.', ' ').' €</h5>';
             echo '<p style="color: #fff;">'.$donnees["description"].'</p>';
         echo '</div>';
     ?>
