@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' type='text/css' href='node_modules/bootstrap/dist/css/bootstrap.css'>
     <script src='node_modules/bootstrap/dist/js/bootstrap.bundle.js'></script>
-    <title>Page d'accueil</title> <!-- MODIFIER TITRE -->
+    <title>Page d'accueil - AcheterVehicule</title>
 </head>
 <body class="container" style="background-color: #202020;">
     <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-bottom" data-bs-theme="dark">
@@ -58,7 +58,6 @@
         </div>
         </nav>';
 
-        
         echo '<strong><p style="color: #fff;" class="mt-3">Sur AcheterVehicule vous pouvez retrouver une large variété de véhicules différents, allant de véhicules civils banals à des véhicules militaires des plus renforcés, à des prix très abordables</p></strong>';
         // Affichage cartes véhicules
         echo "<div class='container text-center mt-3'>";
