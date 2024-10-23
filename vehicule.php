@@ -60,7 +60,7 @@
 
         // Groupe image + texte du véhicule
         $donnees=mysqli_fetch_assoc($result);
-        echo '<div class="row">';
+        echo '<div class="row mt-3">';
             // Affichage du nom du modèle, prix et description
             echo '<div class="col">';
             echo '<h2 style="color: #fff;">'.$donnees["modele"].'</h2>';
