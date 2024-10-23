@@ -25,7 +25,12 @@
             exit();
         }
         elseif (isset($_POST['ajouter'])) {
-            // LOGIQUE METIER
+            $modele = $_POST['modele'];
+            $prix = $_POST['prix'];
+            $cheminImage = $_POST['cheminImage'];
+            $description = $_POST['description'];
+            $query = 'INSERT INTO AcheterVehicule_vehicule VALUES ("'.$modele.'", "'.$prix.'", "'.$cheminImage.'", "'.$description.'");';
+            $result = mysqli_query($link,$query);
             echo '<body onLoad="alert(\'Véhicule ajouté avec succès.\')">';
             echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
             exit();
@@ -46,7 +51,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
                 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-                <title>Gestion d\'un véhicule</title>
+                <title>Gestion d\'un véhicule - AcheterVehicule</title>
             </head>
             <body class="container" style="background-color: #202020;">
                 <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-bottom" data-bs-theme="dark">
@@ -109,7 +114,27 @@
                 </form>';
             }
             elseif ($_GET['action'] == "ajouter") {
-                // FORMULAIRE AJOUT
+                echo '<h2 style="color: #fff;">Ajouter un véhicule</h2>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="modele" style="color: #fff;">Modèle :</label>
+                        <input type="text" class="form-control" id="modele" name="modele" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prix" style="color: #fff;">Prix :</label>
+                        <input type="number" class="form-control" id="prix" name="prix" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cheminImage" style="color: #fff;">Chemin de l\'image :</label>
+                        <input type="text" class="form-control" id="cheminImage" name="cheminImage" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description" style="color: #fff;">Description :</label>
+                        <textarea class="form-control" id="description" name="description" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" name="ajouter" class="btn btn-success">Ajouter</button>
+                    <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
+                </form>';
             }
             echo '</div>
             </body>
