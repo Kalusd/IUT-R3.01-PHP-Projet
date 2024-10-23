@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' type='text/css' href='node_modules/bootstrap/dist/css/bootstrap.css'>
     <script src='node_modules/bootstrap/dist/js/bootstrap.bundle.js'></script>
-    <title>Page d'accueil</title> <!-- MODIFIER TITRE -->
+    <title><?php echo $_GET['modele']; ?> - AcheterVehicule</title>
 </head>
 <body class="container" style="background-color: #202020;">
     <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-bottom" data-bs-theme="dark">
@@ -58,34 +58,29 @@
         </div>
         </nav>';
 
-
         // Groupe image + texte du véhicule
         $donnees=mysqli_fetch_assoc($result);
         echo '<div class="row">';
-
+            // Affichage du nom du modèle, prix et description
             echo '<div class="col">';
             echo '<h2 style="color: #fff;">'.$donnees["modele"].'</h2>';
             echo '<h5 style="color: #fff;">'.number_format($donnees["prix"], 2, '.', ' ').' €</h5>';
             echo '<p style="color: #fff;">'.$donnees["description"].'</p>';
-            echo '
-                <form action="ajouter_panier.php" method="post" class="mt-3">
+            echo '<form action="ajouterPanier.php" method="post" class="mt-3">
+                    <input type="hidden" name="article_id" value="'.$donnees['modele'].'">
                     <div class="form-group">
                         <label for="quantite" style="color: #fff;">Quantité :</label>
                         <input type="number" id="quantite" name="quantite" class="form-control" min="1" value="1" required>
                     </div>
-
-                    <input type="hidden" name="article_id" value="<?php echo $donnees["id"]; ?>">
                     <div class="form-group text-center mt-3">
                         <input type="submit" value="Ajouter au panier" class="btn btn-success">
                     </div>
-                </form>
-            ';
+                </form>';
             echo '</div>';
-            
+            // Affichage image véhicule
             echo '<div class="col">';
             echo '<img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=640&hauteur=360" class="" alt="'.$donnees["modele"].'">';
             echo '</div>';
-            
         echo '</div>';
         
     ?>
