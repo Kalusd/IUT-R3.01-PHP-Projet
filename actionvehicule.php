@@ -12,21 +12,27 @@
         // Si on a une action définie dans le POST = on doit exécuter l'action car confirmation déjà demandée à l'utilisateur
         if (isset($_POST['supprimer'])) {
             try {
+                // Récupération des informations dans le POST
                 $modele = $_POST['modele'];
+                // Requête SQL (on sélectionne la colonne chemin_Vignette pour le véhicule actuel)
                 $query = "SELECT chemin_Vignette FROM AcheterVehicule_vehicule WHERE modele = '".$modele."';";
                 $result = mysqli_query($link,$query);
                 $donnees=mysqli_fetch_assoc($result);
                 $ancienneImage = $donnees['chemin_Vignette'];
-                if (file_exists($ancienneImage)) {
-                    unlink($ancienneImage);
+                if (file_exists($ancienneImage)) { // Si l'image existe déjà
+                    unlink($ancienneImage); // On la supprime
                 }
+                // Requête SQL (on supprime l'entrée dans la table pour le véhicule actuel)
                 $query = "DELETE FROM AcheterVehicule_vehicule WHERE modele = '".$modele."';";
                 $result = mysqli_query($link,$query);
+                // Confirmation de l'exécution de la requête et redirection vers le back-office
                 echo '<body onLoad="alert(\'Véhicule supprimé avec succès.\')">';
                 echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
                 exit();
-            } catch (Exception $e) {
+            } catch (Exception $e) { // Si une erreur est survenue quelque part dans le bloc try
+                // On encode le message pour qu'il puisse correctement être affiché en html et javascript
                 $message = json_encode("Une erreur est survenue : ".htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+                // Puis on affiche le message précédent
                 echo "<body onLoad='alert($message)'>";
                 echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
                 exit();
@@ -35,29 +41,37 @@
         }
         elseif (isset($_POST['modifier'])) {
             try {
+                // Récupération des informations dans le POST
                 $modele = $_POST['modele'];
                 $prix = $_POST['prix'];
                 $description = $_POST['description'];
                 $objetImage = $_FILES['image'];
                 $nomImage = $objetImage['name'];
-                if ($objetImage['type'] !== 'image/jpeg') {
+                if ($objetImage['type'] !== 'image/jpeg') { // Si le fichier n'est pas une image jpeg
+                    // On lève une exception qui sera gérée par le bloc catch
                     throw new Exception("Seules les images jpeg sont autorisées");
                 }
+                // Requête SQL (on sélectionne la colonne chemin_Vignette pour le véhicule actuel)
                 $query = "SELECT chemin_Vignette FROM AcheterVehicule_vehicule WHERE modele = '".$modele."';";
                 $result = mysqli_query($link,$query);
                 $donnees=mysqli_fetch_assoc($result);
                 $ancienneImage = $donnees['chemin_Vignette'];
-                if (file_exists($ancienneImage)) {
-                    unlink($ancienneImage);
+                if (file_exists($ancienneImage)) { // Si l'image existe déjà
+                    unlink($ancienneImage); // On la supprime
                 }
+                // On enregistre l'image transférée dans le formulaire dans le dossier img
                 move_uploaded_file($objetImage["tmp_name"], "./img/$nomImage");
+                // Requête SQL (on modifie les valeurs des colonnes pour le véhicule actuel)
                 $query = "UPDATE AcheterVehicule_vehicule SET prix = '".$prix."', chemin_Vignette = './img/".$nomImage."', description = '".$description."' WHERE modele = '".$modele."';";
                 $result = mysqli_query($link,$query);
+                // Confirmation de l'exécution de la requête et redirection vers le back-office
                 echo '<body onLoad="alert(\'Véhicule ajouté avec succès.\')">';
                 echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
                 exit();
-            } catch (Exception $e) {
+            } catch (Exception $e) { // Si une erreur est survenue quelque part dans le bloc try
+                // On encode le message pour qu'il puisse correctement être affiché en html et javascript
                 $message = json_encode("Une erreur est survenue : ".htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+                // Puis on affiche le message précédent
                 echo "<body onLoad='alert($message)'>";
                 echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
                 exit();
@@ -65,22 +79,29 @@
         }
         elseif (isset($_POST['ajouter'])) {
             try {
+                // Récupération des informations dans le POST
                 $modele = $_POST['modele'];
                 $prix = $_POST['prix'];
                 $description = $_POST['description'];
                 $objetImage = $_FILES['image'];
                 $nomImage = $objetImage['name'];
-                if ($objetImage['type'] !== 'image/jpeg') {
+                if ($objetImage['type'] !== 'image/jpeg') { // Si le fichier n'est pas une image jpeg
+                    // On lève une exception qui sera gérée par le bloc catch
                     throw new Exception("Seules les images jpeg sont autorisées");
                 }
+                // On enregistre l'image transférée dans le formulaire dans le dossier img
                 move_uploaded_file($objetImage["tmp_name"], "./img/$nomImage");
+                // Requête SQL (on ajoute une entrée dans la table pour le véhicule actuel)
                 $query = 'INSERT INTO AcheterVehicule_vehicule VALUES ("'.$modele.'", "'.$prix.'", "./img/'.$nomImage.'", "'.$description.'");';
                 $result = mysqli_query($link,$query);
+                // Confirmation de l'exécution de la requête et redirection vers le back-office
                 echo '<body onLoad="alert(\'Véhicule ajouté avec succès.\')">';
                 echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
                 exit();
-            } catch (Exception $e) {
+            } catch (Exception $e) { // Si une erreur est survenue quelque part dans le bloc try
+                // On encode le message pour qu'il puisse correctement être affiché en html et javascript
                 $message = json_encode("Une erreur est survenue : ".htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+                // Puis on affiche le message précédent
                 echo "<body onLoad='alert($message)'>";
                 echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
                 exit();
@@ -92,7 +113,8 @@
         //---------------------------------------------------//
 
         // Vérification de l'action à effectuer
-        if (!isset($_GET['action'])) {
+        if (!isset($_GET['action'])) { // Si aucune action n'est définie (ex: accès depuis l'url à la main)
+            // On affiche un message d'erreur puis on redirige l'utilisateur vers l'accueil
             echo '<body onLoad="alert(\'Paramètres invalides.\')">';
             echo '<meta http-equiv="refresh" content="0;URL=index.php">';
             exit();
@@ -134,9 +156,9 @@
             </nav>
             <div class="container mt-3">';
 
-        // REMPLACER PAR UN SWITCH
         switch ($_GET['action']) {
-            case 'supprimer':
+            case 'supprimer': // Si on souhaite supprimer un véhicule
+                // On affiche le formulaire de confirmation de suppression
                 echo '<h2 style="color: #fff;">Confirmation de suppression</h2>
                 <div class="alert alert-warning">
                     Êtes-vous sûr de vouloir supprimer le véhicule <strong>'.$_GET['modele'].'</strong> ?
@@ -147,10 +169,12 @@
                     <a href="backOffice.php" class="btn btn-secondary">Non, annuler</a>
                 </form>';
                 break;
-            case 'modifier':
+            case 'modifier': // Si on souhaite modifier un véhicule
+                // Requête SQL (on récupère les valeurs pour le véhicule actuel)
                 $query = "SELECT * FROM AcheterVehicule_vehicule WHERE modele = '".$_GET['modele']."';";
                 $result = mysqli_query($link,$query);
                 $donnees=mysqli_fetch_assoc($result);
+                // On affiche le formulaire de modification du véhicule
                 echo '<h2 style="color: #fff;">Modifier le véhicule "'.$_GET['modele'].'"</h2>
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="modele" value="'.$_GET['modele'].'" required>
@@ -170,7 +194,8 @@
                     <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
                 </form>';
                 break;
-            case 'ajouter':
+            case 'ajouter': // Si on souhaite ajouter un véhicule
+                // On affiche le formulaire d'ajout de véhicule
                 echo '<h2 style="color: #fff;">Ajouter un véhicule</h2>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -193,7 +218,8 @@
                     <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
                 </form>';
                 break;
-            default:
+            default: // Dans tous les autres cas
+                // On affiche un message d'erreur puis on redirige l'utilisateur vers l'accueil
                 echo '<body onLoad="alert(\'Paramètres invalides.\')">';
                 echo '<meta http-equiv="refresh" content="0;URL=index.php">';
                 exit();
