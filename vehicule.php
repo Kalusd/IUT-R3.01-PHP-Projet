@@ -69,7 +69,8 @@
             echo '<h2 style="color: #fff;">'.$donnees["modele"].'</h2>';
             echo '<h5 style="color: #fff;">'.number_format($donnees["prix"], 2, '.', ' ').' €</h5>';
             echo '<p style="color: #fff;">'.$donnees["description"].'</p>';
-            echo '<form action="ajouterAuPanier.php" method="post" class="mt-3">
+            echo '<form action="modifierPanier.php" method="post" class="mt-3">
+                    <input type="hidden" name="action" value="ajout">
                     <input type="hidden" name="article_id" value="'.$donnees['modele'].'">
                     <div class="form-group">
                         <label for="quantite" style="color: #fff;">Quantité :</label>
