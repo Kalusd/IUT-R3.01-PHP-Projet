@@ -38,6 +38,9 @@
 
         // Navbar : connexion, déconnexion, back-office
         echo '<ul class="navbar-nav ms-auto mb-2 mb-lg-0">';
+        echo'<li class="nav-item">
+            <a class="nav-link" href="panier.php">Panier</a>
+            </li>';
         if (isset($_SESSION['login'])) {
             if ($_SESSION['role'] == 'admin') {
                 echo '<li class="nav-item">
