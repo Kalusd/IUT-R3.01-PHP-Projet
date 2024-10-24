@@ -67,7 +67,7 @@
         echo '<strong><p style="color: #fff;" class="mt-3">Liste des véhicules disponibles :</h1></strong>';
         // Affichage cartes véhicules
         echo "<div class='container text-center mt-3'>";
-        echo '<div class="row row-cols-3">';
+        echo '<div class="row row-cols-4">';
         while ($donnees=mysqli_fetch_assoc($result)) {
             echo '<div class="col">';
             echo '<div class="mt-2">';

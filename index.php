@@ -62,10 +62,11 @@
         </nav>';
 
         echo '<strong><p style="color: #fff;" class="mt-3">Sur AcheterVehicule vous pouvez retrouver une large variété de véhicules différents, allant de véhicules civils banals à des véhicules militaires des plus renforcés, à des prix très abordables</p></strong>';
+        echo '<p style="color: #fff;">Sélection de 4 véhicules disponibles à la vente (retrouvez tout le catalogue sur la page véhicules) :</p>';
         // Affichage cartes véhicules
         echo "<div class='container text-center mt-3'>";
-        echo '<div class="row row-cols-3">';
-        for ($i = 0; $i < 3; $i++) {
+        echo '<div class="row row-cols-4">';
+        for ($i = 0; $i < 4; $i++) {
             $donnees=mysqli_fetch_assoc($result);
             echo '<div class="col">';
             echo '<a class="card" style="width: 18rem;" data-bs-theme="dark" href="vehicule.php?modele='.$donnees["modele"].'">';
