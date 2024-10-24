@@ -3,9 +3,8 @@ Site web de vente de voitures.
 Il faut installer bootstrap dans le dossier du projet.  
 
 # Identifiants de test
-Login / Mot de passe  
-- admin / admin  
-- client / client  
+Login / Mot de passe (modifiés depuis le dernier commit de ce fichier)  
+- indiqués dans le mail 
 
 # TO-DO LIST
 - [ ] Ajouter page panier
