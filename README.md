@@ -13,4 +13,6 @@ Login / Mot de passe (modifiés depuis le dernier commit de ce fichier)
 - [x] Faire le back-office
 - [ ] Rajouter véhicules
 - [ ] Ajouter descriptions véhicules
+- [ ] Page de paiement
+- [ ] Footer avec les membres du groupe
 - [x] Améliorer page de connexion
