@@ -46,23 +46,28 @@
                 $prix = $_POST['prix'];
                 $description = $_POST['description'];
                 $objetImage = $_FILES['image'];
-                $nomImage = $objetImage['name'];
-                if ($objetImage['type'] !== 'image/jpeg') { // Si le fichier n'est pas une image jpeg
-                    // On lève une exception qui sera gérée par le bloc catch
-                    throw new Exception("Seules les images jpeg sont autorisées");
-                }
                 // Requête SQL (on sélectionne la colonne chemin_Vignette pour le véhicule actuel)
                 $query = "SELECT chemin_Vignette FROM AcheterVehicule_vehicule WHERE modele = '".$modele."';";
                 $result = mysqli_query($link,$query);
-                $donnees=mysqli_fetch_assoc($result);
-                $ancienneImage = $donnees['chemin_Vignette'];
-                if (file_exists($ancienneImage)) { // Si l'image existe déjà
-                    unlink($ancienneImage); // On la supprime
+                $donnees = mysqli_fetch_assoc($result);
+                $nomImage = $donnees['chemin_Vignette'];
+                // Si une image est transférée
+                if ($objetImage['size'] != '0') {
+                    $nomImage = './img/'.$objetImage['name'];
+                    if ($objetImage['type'] !== 'image/jpeg') { // Si le fichier n'est pas une image jpeg
+                        // On lève une exception qui sera gérée par le bloc catch
+                        throw new Exception("Seules les images jpeg sont autorisées");
+                    }
+                    // On récupère le nom de l'ancienne image
+                    $ancienneImage = $donnees['chemin_Vignette'];
+                    if (file_exists($ancienneImage)) { // Si l'image existe déjà
+                        unlink($ancienneImage); // On la supprime
+                    }
+                    // On enregistre l'image transférée dans le formulaire dans le dossier img
+                    move_uploaded_file($objetImage["tmp_name"], "./img/$nomImage");
                 }
-                // On enregistre l'image transférée dans le formulaire dans le dossier img
-                move_uploaded_file($objetImage["tmp_name"], "./img/$nomImage");
                 // Requête SQL (on modifie les valeurs des colonnes pour le véhicule actuel)
-                $query = "UPDATE AcheterVehicule_vehicule SET prix = '".$prix."', chemin_Vignette = './img/".$nomImage."', description = '".$description."' WHERE modele = '".$modele."';";
+                $query = "UPDATE AcheterVehicule_vehicule SET prix = '".$prix."', chemin_Vignette = '".$nomImage."', description = '".$description."' WHERE modele = '".$modele."';";
                 $result = mysqli_query($link,$query);
                 // Confirmation de l'exécution de la requête et redirection vers le back-office
                 echo '<body onLoad="alert(\'Véhicule ajouté avec succès.\')">';
@@ -184,11 +189,12 @@
                     </div>
                     <div class="form-group">
                         <label for="image" style="color: #fff;">Image du véhicule :</label>
-                        <input type="file" accept="image/jpeg" class="form-control" id="image" name="image" required>
+                        <label for="image"style="color: #fff;" class="mt-2 mb-1"><img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=426&hauteur=240" alt="Image actuelle"></label>
+                        <input type="file" accept="image/jpeg" class="form-control" id="image" name="image">
                     </div>
                     <div class="form-group mb-3">
                         <label for="description" style="color: #fff;">Description :</label>
-                        <textarea class="form-control" id="description" name="description" rows="6" required>'.$donnees['description'].'</textarea>
+                        <textarea class="form-control" id="description" name="description" rows="6">'.$donnees['description'].'</textarea>
                     </div>
                     <button type="submit" name="modifier" class="btn btn-success">Modifier</button>
                     <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
@@ -212,7 +218,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="description" style="color: #fff;">Description :</label>
-                        <textarea class="form-control" id="description" name="description" rows="6" required></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="6"></textarea>
                     </div>
                     <button type="submit" name="ajouter" class="btn btn-success">Ajouter</button>
                     <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
