@@ -188,7 +188,7 @@
                         <input type="number" class="form-control" id="prix" name="prix" value="'.$donnees['prix'].'" required>
                     </div>
                     <div class="form-group">
-                        <label for="image" style="color: #fff;">Image du véhicule :</label>
+                        <label for="image" style="color: #fff;">Image du véhicule (facultatif) :</label>
                         <label for="image"style="color: #fff;" class="mt-2 mb-1"><img src="vignette.php?nom='.$donnees["chemin_Vignette"].'&largeur=426&hauteur=240" alt="Image actuelle"></label>
                         <input type="file" accept="image/jpeg" class="form-control" id="image" name="image">
                     </div>
