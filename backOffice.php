@@ -49,7 +49,7 @@
 
         // Affichage cartes véhicules avec boutons modifier et supprimer
         echo "<div class='container text-center mt-3'>";
-        echo '<div class="row row-cols-3">';
+        echo '<div class="row row-cols-4">';
         while ($donnees=mysqli_fetch_assoc($result)) {
             echo '<div class="col">';
             echo '<div class="card mt-2" style="width: 18rem;" data-bs-theme="dark" href="vehicule.php?modele='.$donnees["modele"].'">';
