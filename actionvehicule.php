@@ -135,62 +135,69 @@
             <div class="container mt-3">';
 
         // REMPLACER PAR UN SWITCH
-        if ($_GET['action'] == "supprimer") {
-            echo '<h2 style="color: #fff;">Confirmation de suppression</h2>
-            <div class="alert alert-warning">
-                Êtes-vous sûr de vouloir supprimer le véhicule <strong>'.$_GET['modele'].'</strong> ?
-            </div>
-            <form action="" method="post">
-                <input type="hidden" name="modele" value="'.$_GET['modele'].'">
-                <button type="submit" name="supprimer" class="btn btn-danger">Oui, supprimer</button>
-                <a href="backOffice.php" class="btn btn-secondary">Non, annuler</a>
-            </form>';
-        }
-        elseif ($_GET['action'] == "modifier") {
-            $query = "SELECT * FROM AcheterVehicule_vehicule WHERE modele = '".$_GET['modele']."';";
-            $result = mysqli_query($link,$query);
-            $donnees=mysqli_fetch_assoc($result);
-            echo '<h2 style="color: #fff;">Modifier le véhicule "'.$_GET['modele'].'"</h2>
-            <form action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="modele" value="'.$_GET['modele'].'" required>
-                <div class="form-group">
-                    <label for="prix" style="color: #fff;">Prix :</label>
-                    <input type="number" class="form-control" id="prix" name="prix" value="'.$donnees['prix'].'" required>
+        switch ($_GET['action']) {
+            case 'supprimer':
+                echo '<h2 style="color: #fff;">Confirmation de suppression</h2>
+                <div class="alert alert-warning">
+                    Êtes-vous sûr de vouloir supprimer le véhicule <strong>'.$_GET['modele'].'</strong> ?
                 </div>
-                <div class="form-group">
-                    <label for="image" style="color: #fff;">Image du véhicule :</label>
-                    <input type="file" accept="image/jpeg" class="form-control" id="image" name="image" required>
-                </div>
-                <div class="form-group mb-3">
-                    <label for="description" style="color: #fff;">Description :</label>
-                    <textarea class="form-control" id="description" name="description" rows="6" required>'.$donnees['description'].'</textarea>
-                </div>
-                <button type="submit" name="modifier" class="btn btn-success">Modifier</button>
-                <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
-            </form>';
-        }
-        elseif ($_GET['action'] == "ajouter") {
-            echo '<h2 style="color: #fff;">Ajouter un véhicule</h2>
-            <form action="" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="modele" style="color: #fff;">Modèle :</label>
-                    <input type="text" class="form-control" id="modele" name="modele" required>
-                </div>
-                <div class="form-group">
-                    <label for="prix" style="color: #fff;">Prix :</label>
-                    <input type="number" class="form-control" id="prix" name="prix" required>
-                </div>
-                <div class="form-group">
-                    <label for="image" style="color: #fff;">Image du véhicule :</label>
-                    <input type="file" accept="image/jpeg" class="form-control" id="image" name="image" required>
-                </div>
-                <div class="form-group mb-3">
-                    <label for="description" style="color: #fff;">Description :</label>
-                    <textarea class="form-control" id="description" name="description" rows="6" required></textarea>
-                </div>
-                <button type="submit" name="ajouter" class="btn btn-success">Ajouter</button>
-                <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
-            </form>';
+                <form action="" method="post">
+                    <input type="hidden" name="modele" value="'.$_GET['modele'].'">
+                    <button type="submit" name="supprimer" class="btn btn-danger">Oui, supprimer</button>
+                    <a href="backOffice.php" class="btn btn-secondary">Non, annuler</a>
+                </form>';
+                break;
+            case 'modifier':
+                $query = "SELECT * FROM AcheterVehicule_vehicule WHERE modele = '".$_GET['modele']."';";
+                $result = mysqli_query($link,$query);
+                $donnees=mysqli_fetch_assoc($result);
+                echo '<h2 style="color: #fff;">Modifier le véhicule "'.$_GET['modele'].'"</h2>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="modele" value="'.$_GET['modele'].'" required>
+                    <div class="form-group">
+                        <label for="prix" style="color: #fff;">Prix :</label>
+                        <input type="number" class="form-control" id="prix" name="prix" value="'.$donnees['prix'].'" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image" style="color: #fff;">Image du véhicule :</label>
+                        <input type="file" accept="image/jpeg" class="form-control" id="image" name="image" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description" style="color: #fff;">Description :</label>
+                        <textarea class="form-control" id="description" name="description" rows="6" required>'.$donnees['description'].'</textarea>
+                    </div>
+                    <button type="submit" name="modifier" class="btn btn-success">Modifier</button>
+                    <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
+                </form>';
+                break;
+            case 'ajouter':
+                echo '<h2 style="color: #fff;">Ajouter un véhicule</h2>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="modele" style="color: #fff;">Modèle :</label>
+                        <input type="text" class="form-control" id="modele" name="modele" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prix" style="color: #fff;">Prix :</label>
+                        <input type="number" class="form-control" id="prix" name="prix" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image" style="color: #fff;">Image du véhicule :</label>
+                        <input type="file" accept="image/jpeg" class="form-control" id="image" name="image" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description" style="color: #fff;">Description :</label>
+                        <textarea class="form-control" id="description" name="description" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" name="ajouter" class="btn btn-success">Ajouter</button>
+                    <a href="backOffice.php" class="btn btn-secondary">Annuler</a>
+                </form>';
+                break;
+            default:
+                echo '<body onLoad="alert(\'Paramètres invalides.\')">';
+                echo '<meta http-equiv="refresh" content="0;URL=index.php">';
+                exit();
+                break;
         }
         echo '</div>
         </body>
