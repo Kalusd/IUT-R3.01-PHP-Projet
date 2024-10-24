@@ -69,6 +69,7 @@ include("./connexionBDD.php");
         echo '<th scope="col">Modèle</th>';
         echo '<th scope="col">Prix Unitaire (€)</th>';
         echo '<th scope="col">Quantité</th>';
+        echo '<th scope="col">Suppression</th>';
         echo '<th scope="col">Total (€)</th>';
         echo '</tr>';
         echo '</thead>';
@@ -90,17 +91,24 @@ include("./connexionBDD.php");
 
                 // Affichage des informations de l'article
                 echo '<tr>';
-                echo '<td>'.$donnees['modele'].'</td>';
-                echo '<td>'.$donnees['prix'].'</td>';
-                echo '<td>'.$quantite.'</td>';
-                echo '<td>'.number_format($totalArticle, 2, '.', ' ').'</td>';
+                echo '<td style="vertical-align: middle;">'.$donnees['modele'].'</td>';
+                echo '<td style="vertical-align: middle;">'.$donnees['prix'].'</td>';
+                echo '<td style="vertical-align: middle;">'.$quantite.'</td>';
+                echo '<td style="vertical-align: middle;"><form action=modifierPanier.php method="post">
+                    <input type="hidden" name="article_id" value="'.$donnees['modele'].'">
+                    <input type="hidden" name="action" value="suppression">
+                    <div class="form-group text-center">
+                        <input type="submit" value="Supprimer du panier" class="btn btn-danger">
+                    </div>
+                </form></td>';
+                echo '<td style="vertical-align: middle;">'.number_format($totalArticle, 2, '.', ' ').'</td>';
                 echo '</tr>';
             }
         }
 
         // Affiche le total
         echo '<tr>';
-        echo '<td colspan="3"><strong>Total général :</strong></td>';
+        echo '<td colspan="4"><strong>Total général :</strong></td>';
         echo '<td><strong>'.number_format($totalPanier, 2, '.', ' ').' €</strong></td>';
         echo '</tr>';
 
