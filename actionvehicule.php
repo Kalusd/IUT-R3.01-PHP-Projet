@@ -70,7 +70,7 @@
                 $query = "UPDATE AcheterVehicule_vehicule SET prix = '".$prix."', chemin_Vignette = '".$nomImage."', description = '".$description."' WHERE modele = '".$modele."';";
                 $result = mysqli_query($link,$query);
                 // Confirmation de l'exécution de la requête et redirection vers le back-office
-                echo '<body onLoad="alert(\'Véhicule ajouté avec succès.\')">';
+                echo '<body onLoad="alert(\'Véhicule modifié avec succès.\')">';
                 echo '<meta http-equiv="refresh" content="0;URL=backoffice.php">';
                 exit();
             } catch (Exception $e) { // Si une erreur est survenue quelque part dans le bloc try
