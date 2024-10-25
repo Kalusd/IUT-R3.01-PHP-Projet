@@ -11,7 +11,7 @@
     <script src='node_modules/bootstrap/dist/js/bootstrap.bundle.js'></script>
     <title>Back-office - AcheterVehicule</title>
 </head>
-<body class="container" style="background-color: #202020;">
+<body class="container" style="background-color: #202020; color: #fff;">
     <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-bottom" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.php">AcheterVehicule</a>
