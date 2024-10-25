@@ -108,13 +108,39 @@
                     <button type="submit" class="btn btn-primary btn-block mt-3">Payer maintenant</button>
                 </form>';
             case "POST":
-                if (isset($_POST["cardNumber"]))
-                // VERIFIER DERNIER NUMERO CARTE = PREMIER NUMERO
-                // VERIFIER CARTE ENCORE VALIDE DANS 3 MOIS
-                echo '
+                if (isset($_POST["cardNumber"])){
+
+                
+                $cardNumber = $_POST['cardNumber'];
+                $expiration = $_POST['dateExpiration'];
+                
+                // Vérification numéro de carte
+                if ($cardNumber[0] == $cardNumber[15]) {
+                    // Vérification de la date d'expiration
+                    $currentDate = new DateTime();
+                    $currentDate->modify('+3 months');
+                    $expirationDate = DateTime::createFromFormat('m/y', $expiration);
+
+                    if ($expirationDate  > $currentDate) {
+                        echo '
+                        <div class="container">
+                            <h1 class="text-center mt-5">Votre paiement a bien été pris en compte</h1>
+                        </div>';
+                    } else {
+                        echo '
+                        <div class="container">
+                            <h1 class="text-center mt-5 text-danger">Date d\'expiration invalide. Veuillez vérifier votre carte.</h1>
+                        </div>';
+                    }
+                }else {
+                    echo '
                     <div class="container">
-                        <h1 class="text-center mt-5">Votre paiement a bien été pris en compte</h1>
+                        <h1 class="text-center mt-5 text-danger">Numéro de carte invalide. Veuillez vérifier votre carte.</h1>
                     </div>';
+                }
+                break;
+            }
+        
         }
         echo '</body>
     </html>';
