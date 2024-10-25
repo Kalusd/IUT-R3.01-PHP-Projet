@@ -120,7 +120,7 @@ include("./connexionBDD.php");
     ?>
 
     <div class="mt-4">
-        <a href="vehicules.php" class="btn btn-primary">Continuer vos achats</a>
+        <a href="vehicules.php" class="btn btn-secondary">Continuer vos achats</a>
         <a href="checkout.php" class="btn btn-success">Passer la commande</a>
     </div>
 </body>
